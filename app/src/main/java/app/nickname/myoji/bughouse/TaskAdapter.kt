@@ -24,15 +24,20 @@ class TaskAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items[position]
-        holder.container.setOnClickListener {
-            itemClickListener.onItemClick(position)
-        }
         holder.nameTextView.text = item.name
+        holder.container.setOnClickListener {
+            itemClickListener.onItemClick(item)
+        }
 
     }
 
     fun addAll(items: List<Task>) {
         this.items.addAll(items)
+        notifyDataSetChanged()
+    }
+
+    fun addItem(item:Task){
+        this.items.add(item)
         notifyDataSetChanged()
     }
 
@@ -42,6 +47,6 @@ class TaskAdapter(
     }
 
     interface ItemClickListener {
-        fun onItemClick(position: Int)
+        fun onItemClick(item: Task)
     }
 }
